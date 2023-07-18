@@ -1,6 +1,8 @@
 package com.penerbitan.dpr
 
 import android.annotation.SuppressLint
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.net.http.SslError
@@ -8,6 +10,7 @@ import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.view.KeyEvent
+import android.view.Menu
 import android.view.View
 import android.webkit.SslErrorHandler
 import android.webkit.WebResourceRequest
@@ -27,11 +30,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.penerbitan.dpr.ui.theme.PenerbitanDPRTheme
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.compose.ui.text.toLowerCase
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.util.Locale
+import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
     private lateinit var webView: WebView
     private lateinit var bottomNavigationView: BottomNavigationView
+    var urlLink = "https://penerbitan-dpr.id/"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,24 +49,28 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.navigation_home -> {
                     // Tindakan ketika menu "Home" dipilih
+                    Log.d("TAG", "onCreate: testing masuk atas")
+                    webView.loadUrl(urlLink)
+                    loadingVisble()
                     true
                 }
-                R.id.navigation_search -> {
-                    // Tindakan ketika menu "Search" dipilih
+
+                R.id.navigation_berita -> {
+                    // Tindakan ketika menu "Berita" dipilih
+                    Log.d("info", "onCreate: testing masuk bawah")
+                    webView.loadUrl(urlLink+"berita")
+                    loadingVisble()
                     true
                 }
-                R.id.navigation_notifications -> {
-                    // Tindakan ketika menu "Notifications" dipilih
-                    true
-                }
+
                 else -> false
             }
         }
         setupViews()
     }
+
     @SuppressLint("SetJavaScriptEnabled")
     private fun setupViews() {
-        val urlLink = "https://penerbitan-dpr.id/"
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
         webView = findViewById<WebView>(R.id.webView)
         webView.settings.javaScriptEnabled = true
@@ -78,6 +90,7 @@ class MainActivity : AppCompatActivity() {
             ) {
                 handler?.proceed()
             }
+
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
 
                 return if (url.startsWith("tel:") || url.startsWith("mailto:") || url.startsWith("market://")) {
@@ -94,13 +107,18 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onLoadResource(view: WebView, url: String) {
-                webView.loadUrl("javascript:document.querySelector(\".header\").remove();")
+                removeByQuerySelector(webView, ".header")
+                removeByQuerySelector(webView, ".theme-switch-box-wrap")
+                removeByQuerySelector(webView, "[data-id='67360ee5']")
+                removeByQuerySelector(webView, "[data-id='4ee4692']")
+                removeByQuerySelector(webView, "[data-id='e073c6e']")
+                removeByQuerySelector(webView, ".apps-img")
+
             }
 
             override fun onPageFinished(view: WebView, url: String) {
                 Log.e("URL onPageFinished", url)
                 progressBar.visibility = View.GONE
-                webView.loadUrl("javascript:document.querySelector(\".header\").remove();")
             }
         }
     }
@@ -113,6 +131,51 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.top_action_bar, menu)
+
+        val manager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchItem = menu?.findItem(R.id.navigation_search)
+        val searchView = searchItem?.actionView as SearchView
+
+        searchView.setSearchableInfo(manager.getSearchableInfo(componentName))
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            var data: String? = null
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchView.clearFocus()
+                searchView.setQuery("", false)
+                searchItem.collapseActionView()
+
+                if (query?.isEmpty() == true) {
+                    data = null
+                }else {
+                    data = query
+                }
+
+                var searchUrl = "$urlLink?s=$data"
+                webView.loadUrl(searchUrl)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                Log.d("TAG", "onQueryTextChange: $newText")
+                return false
+            }
+        })
+        return true
+    }
+
+    private fun loadingVisble() {
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
+        progressBar.visibility = View.VISIBLE
+    }
+
+    private fun removeByQuerySelector(webView: WebView, classHtml: String) {
+        webView.loadUrl("javascript:document.querySelector(\"$classHtml\").remove();")
     }
 
     private fun validateUrl(url: String): Boolean {
