@@ -49,7 +49,6 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.navigation_home -> {
                     // Tindakan ketika menu "Home" dipilih
-                    Log.d("TAG", "onCreate: testing masuk atas")
                     webView.loadUrl(urlLink)
                     loadingVisble()
                     true
@@ -57,7 +56,6 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.navigation_berita -> {
                     // Tindakan ketika menu "Berita" dipilih
-                    Log.d("info", "onCreate: testing masuk bawah")
                     webView.loadUrl(urlLink+"berita")
                     loadingVisble()
                     true
@@ -125,11 +123,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK && webView.canGoBack()) {
+            loadingVisble()
             webView.goBack()
             return true
-        } else {
-            finish()
         }
+
         return super.onKeyDown(keyCode, event)
     }
 
@@ -144,25 +142,18 @@ class MainActivity : AppCompatActivity() {
         searchView.setSearchableInfo(manager.getSearchableInfo(componentName))
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            var data: String? = null
             override fun onQueryTextSubmit(query: String?): Boolean {
+                loadingVisble()
                 searchView.clearFocus()
                 searchView.setQuery("", false)
                 searchItem.collapseActionView()
 
-                if (query?.isEmpty() == true) {
-                    data = null
-                }else {
-                    data = query
-                }
-
-                var searchUrl = "$urlLink?s=$data"
+                var searchUrl = "$urlLink?s=$query"
                 webView.loadUrl(searchUrl)
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                Log.d("TAG", "onQueryTextChange: $newText")
                 return false
             }
         })
