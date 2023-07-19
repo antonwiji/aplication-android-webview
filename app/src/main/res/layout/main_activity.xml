@@ -7,20 +7,8 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/barTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include
-            layout="@layout/layout_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-
-    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/barTitle"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="56dp">
 
@@ -52,7 +40,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_nav_menu" />
+        app:menu="@menu/bottom_nav_menu"
+        app:itemTextColor="@color/white"
+        />
 
 
 </RelativeLayout>
