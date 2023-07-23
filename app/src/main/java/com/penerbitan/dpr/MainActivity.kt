@@ -13,22 +13,14 @@ import android.view.KeyEvent
 import android.view.Menu
 import android.view.View
 import android.webkit.SslErrorHandler
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.penerbitan.dpr.ui.theme.PenerbitanDPRTheme
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.compose.ui.text.toLowerCase
@@ -43,6 +35,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setIcon(R.drawable.logo_resize)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFFFF")))
         setContentView(R.layout.main_activity)
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
@@ -110,8 +106,11 @@ class MainActivity : AppCompatActivity() {
                 removeByQuerySelector(webView, "[data-id='67360ee5']")
                 removeByQuerySelector(webView, "[data-id='4ee4692']")
                 removeByQuerySelector(webView, "[data-id='e073c6e']")
+                removeByQuerySelector(webView, "[data-id='38a7f288']")
+                removeByQuerySelector(webView, "[data-id='31075929']")
+                paddingByQuerySelector(webView, "[data-id='68053888']", "0px")
+                removeByQuerySelector(webView, "footer")
                 removeByQuerySelector(webView, ".apps-img")
-
             }
 
             override fun onPageFinished(view: WebView, url: String) {
@@ -167,6 +166,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun removeByQuerySelector(webView: WebView, classHtml: String) {
         webView.loadUrl("javascript:document.querySelector(\"$classHtml\").remove();")
+    }
+
+    private fun paddingByQuerySelector(webView: WebView, classHtml: String, padding: String) {
+        webView.loadUrl("javascript: let data = document.querySelector(\"$classHtml\")" +
+                "data.style.padding = \"$padding\";")
     }
 
     private fun validateUrl(url: String): Boolean {
