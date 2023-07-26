@@ -11,5 +11,10 @@
         android:title="Berita"
         android:icon="@drawable/baseline_newspaper_24"
         />
+    <item
+        android:id="@+id/navigation_menu"
+        android:title="Menu"
+        android:icon="@drawable/baseline_menu_24"
+        />
 
 </menu>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText">
+    <item
+        android:id="@+id/navigation_publish"
+        android:title="DIGITAL PUBLISHING"
+        >
+        <menu>
+            <item android:id="@+id/e_book"
+                android:title="E-Book"
+                />
+            <item android:id="@+id/e_magazine"
+                android:title="E-Magazine"
+                />
+            <item android:id="@+id/e_buletin"
+                android:title="E-Buletin"
+                />
+        </menu>
+    </item>
+    <item
+        android:id="@+id/navigation_parlemen"
+        android:title="TVR PARLEMEN"
+        >
+        <menu>
+            <item android:id="@+id/warta_parlemen" android:title="Warta Parlemen" />
+            <item android:id="@+id/mutiara_parlemen" android:title="Mutiara Parlemen" />
+            <item android:id="@+id/psa_dpr_ri" android:title="PSA DPR RI" />
+            <item android:id="@+id/perempuan_parlemen" android:title="Perempuan Parlemen" />
+            <item android:id="@+id/kurma_dpr" android:title="Kurma DPR" />
+            <item android:id="@+id/epn" android:title="EPN" />
+            <item android:id="@+id/teras_parlemen" android:title="Teras Parlemen" />
+            <item android:id="@+id/film_dpr" android:title="Film DPR RI" />
+            <item android:id="@+id/bedah_ruu" android:title="Bedah RUU" />
+            <item android:id="@+id/liputan_khusus" android:title="Liputan Khusus" />
+        </menu>
+    </item>
+    <item
+        android:id="@+id/navigation_medtaksos"
+        android:title="MEDTAKSOS">
+        <menu>
+            <item android:id="@+id/navigation_instagram"
+                android:title="Instagram"
+                />
+            <item android:id="@+id/navigation_facebook"
+                android:title="Facebook"
+                />
+            <item android:id="@+id/navigation_twitter"
+                android:title="Twitter"
+                />
+            <item android:id="@+id/navigation_tiktok"
+                android:title="Tiktok"
+                />
+            <item android:id="@+id/navigation_youtube"
+                android:title="Youtube"
+                />
+        </menu>
+    </item>
+</menu>
