@@ -232,8 +232,8 @@ class MainActivity : AppCompatActivity() {
                 removeByQuerySelector(webView, "[data-id='e073c6e']")
                 removeByQuerySelector(webView, "[data-id='38a7f288']")
                 removeByQuerySelector(webView, "[data-id='31075929']")
-                paddingByQuerySelector(webView, "[data-id='68053888']", "0px")
-                removeByQuerySelector(webView, "footer")
+                removeByQuerySelector(webView, "[data-id='45a1d38']")
+                removeByQuerySelector(webView, ".footer__main")
                 removeByQuerySelector(webView, ".apps-img")
             }
 
@@ -306,8 +306,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun paddingByQuerySelector(webView: WebView, classHtml: String, padding: String) {
-        webView.loadUrl("javascript: let data = document.querySelector(\"$classHtml\")" +
-                "data.style.padding = \"$padding\";")
+        webView.loadUrl("javascript:document.querySelector(\"$classHtml\").style.paddingBottom = \"$padding\"")
     }
 
     private fun validateUrl(url: String): Boolean {
