@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
     lateinit var drawerLayout: DrawerLayout
     lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
-    var urlLink = "https://penerbitan-dpr.id/"
+    var urlLink = "https://emedia.dpr.go.id/"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -225,6 +225,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onLoadResource(view: WebView, url: String) {
+                editHeight(webView)
                 removeByQuerySelector(webView, ".header")
                 removeByQuerySelector(webView, ".theme-switch-box-wrap")
                 removeByQuerySelector(webView, "[data-id='67360ee5']")
@@ -232,8 +233,9 @@ class MainActivity : AppCompatActivity() {
 //                removeByQuerySelector(webView, "[data-id='e073c6e']")
 //                removeByQuerySelector(webView, "[data-id='38a7f288']")
 //                removeByQuerySelector(webView, "[data-id='31075929']")
-//                removeByQuerySelector(webView, "[data-id='471b541a']")
+
 //                removeByQuerySelector(webView, "[data-id='45a1d38']")
+                removeByQuerySelector(webView, "[data-id='471b541a']")
                 removeByQuerySelector(webView, "[data-id='3dd7e947']")
                 removeByQuerySelector(webView, "[data-id='442b8f5b']")
                 removeByQuerySelector(webView, ".footer__main")
@@ -303,13 +305,17 @@ class MainActivity : AppCompatActivity() {
         webView.loadUrl("javascript:document.querySelector(\"$classHtml\").remove();")
     }
 
+    private fun editHeight(webView: WebView) {
+        webView.evaluateJavascript("javascript:document.querySelector('.elementor-slides-wrapper').style.height = '300px';", null)
+    }
+
     private fun onClickMenuChild(webView: WebView, url: String) {
         webView.loadUrl(url)
         loadingVisble()
     }
 
     private fun paddingByQuerySelector(webView: WebView, classHtml: String, padding: String) {
-        webView.loadUrl("javascript:document.querySelector(\"$classHtml\").style.paddingBottom = \"$padding\"")
+        webView.loadUrl(""" javascript:document.querySelector("$classHtml").style.paddingBottom = "$padding" """)
     }
 
     private fun validateUrl(url: String): Boolean {
