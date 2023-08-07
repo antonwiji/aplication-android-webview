@@ -3,18 +3,18 @@
     <item
         android:id="@+id/navigation_home"
         android:title="Beranda"
-
+        android:icon="@drawable/baseline_home_24"
         />
 
     <item
         android:id="@+id/navigation_berita"
         android:title="Berita"
-
+        android:icon="@drawable/baseline_newspaper_24"
         />
     <item
         android:id="@+id/navigation_menu"
         android:title="Menu"
-
+        android:icon="@drawable/baseline_menu_24"
         />
 
 </menu>
