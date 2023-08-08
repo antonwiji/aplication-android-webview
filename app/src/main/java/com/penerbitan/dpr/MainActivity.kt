@@ -236,7 +236,7 @@ class MainActivity : AppCompatActivity() {
 
 //                removeByQuerySelector(webView, "[data-id='45a1d38']")
                 removeByQuerySelector(webView, "[data-id='471b541a']")
-                removeByQuerySelector(webView, "[data-id='3dd7e947']")
+                removeByQuerySelector(webView, "[data-id='45a1d38']")
                 removeByQuerySelector(webView, "[data-id='442b8f5b']")
                 removeByQuerySelector(webView, ".footer__main")
                 removeByQuerySelector(webView, ".apps-img")
@@ -306,7 +306,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun editHeight(webView: WebView) {
-        webView.evaluateJavascript("javascript:document.querySelector('.elementor-slides-wrapper').style.height = '300px';", null)
+        webView.evaluateJavascript("""javascript:(function f() {
+            let banner = document.querySelector(".elementor-slides-wrapper")
+            banner.style.height = "300px"
+            let bannerTitle = document.querySelectorAll('.elementor-slide-heading')
+            let button = document.querySelectorAll('.elementor-button')
+            for (let i = 0; i < bannerTitle.length; i++) {
+                bannerTitle[i].style.marginBottom = '30px'
+                button[i].style.marginBottom = '120px'
+            }
+            })()""", null
+        )
     }
 
     private fun onClickMenuChild(webView: WebView, url: String) {
