@@ -226,17 +226,12 @@ class MainActivity : AppCompatActivity() {
 
             override fun onLoadResource(view: WebView, url: String) {
                 editHeight(webView)
+                eMagazineToBanner(webView)
                 removeByQuerySelector(webView, ".header")
                 removeByQuerySelector(webView, ".theme-switch-box-wrap")
                 removeByQuerySelector(webView, "[data-id='67360ee5']")
-//                removeByQuerySelector(webView, "[data-id='4ee4692']")
-//                removeByQuerySelector(webView, "[data-id='e073c6e']")
-//                removeByQuerySelector(webView, "[data-id='38a7f288']")
-//                removeByQuerySelector(webView, "[data-id='31075929']")
-
-//                removeByQuerySelector(webView, "[data-id='45a1d38']")
+                removeByQuerySelector(webView, ".elementor-repeater-item-8d374d5")
                 removeByQuerySelector(webView, "[data-id='471b541a']")
-                removeByQuerySelector(webView, "[data-id='45a1d38']")
                 removeByQuerySelector(webView, "[data-id='442b8f5b']")
                 removeByQuerySelector(webView, ".footer__main")
                 removeByQuerySelector(webView, ".apps-img")
@@ -315,6 +310,15 @@ class MainActivity : AppCompatActivity() {
                 bannerTitle[i].style.marginBottom = '30px'
                 button[i].style.marginBottom = '120px'
             }
+            })()""", null
+        )
+    }
+
+    private fun eMagazineToBanner(webView: WebView) {
+        webView.evaluateJavascript("""javascript:(function f() {
+            let test = document.querySelector("[data-id='31075929']")
+            test.remove()
+            document.querySelector("[data-id='45a1d38']").append(test)
             })()""", null
         )
     }
