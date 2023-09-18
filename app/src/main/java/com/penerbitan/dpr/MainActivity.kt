@@ -318,7 +318,7 @@ class MainActivity : AppCompatActivity() {
         webView.evaluateJavascript("""javascript:(function f() {
             let test = document.querySelector("[data-id='31075929']")
             test.remove()
-            document.querySelector("[data-id='45a1d38']").append(test)
+            document.querySelector("[data-id='3dd7e947']").insertAdjacentElement('afterbegin', test)
             })()""", null
         )
     }
