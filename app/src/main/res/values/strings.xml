@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Penerbitan DPR</string>
+    <string name="app_name">Emedia DPR RI</string>
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>
-    
+    <string name="notification_error_ssl_cert_invalid">Error SSL</string>
     <string name="ms.dhoni">MS.Dhoni</string>
 </resources>

@@ -7,7 +7,7 @@
     android:id="@+id/my_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context="com.emedia.dprri.MainActivity"
     tools:ignore="HardcodedText"
     android:layoutDirection="rtl"
     >
@@ -45,7 +45,7 @@
         <WebView
             android:id="@+id/webView"
             android:layout_width="match_parent"
-            android:layout_height="675dp"
+            android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_marginTop="16dp">
 
